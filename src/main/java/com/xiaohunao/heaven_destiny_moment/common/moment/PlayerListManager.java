@@ -2,7 +2,6 @@ package com.xiaohunao.heaven_destiny_moment.common.moment;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.mojang.datafixers.kinds.IdF;
 import com.xiaohunao.heaven_destiny_moment.client.gui.bar.MomentBar;
 import com.xiaohunao.heaven_destiny_moment.client.gui.hud.MomentBarOverlay;
 import com.xiaohunao.heaven_destiny_moment.common.attachment.KillEntityRecorderAttachment;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -156,7 +154,6 @@ public class PlayerListManager {
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerInitSync(event.getEntity());
-        System.out.println("PlayerLoggedInEvent");
     }
 
     @SubscribeEvent
