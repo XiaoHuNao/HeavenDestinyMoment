@@ -7,12 +7,10 @@ import com.xiaohunao.heaven_destiny_moment.common.automation.AutomationContext;
 import com.xiaohunao.heaven_destiny_moment.common.context.condition.level.TimeCondition;
 import com.xiaohunao.heaven_destiny_moment.common.function.MomentProbabilityFunction;
 import com.xiaohunao.heaven_destiny_moment.common.init.HDMRegistries;
-import com.xiaohunao.heaven_destiny_moment.common.moment.MomentInstance;
 import com.xiaohunao.heaven_destiny_moment.common.trigger.ITrigger;
 
 import java.util.Optional;
 import java.util.Random;
-import java.util.function.BiFunction;
 
 public record TimeProbabilityTrigger(TimeCondition timeCondition, Optional<Double> base_probability, Optional<MomentProbabilityFunction> probabilityFunction) implements ITrigger {
     public static final MapCodec<TimeProbabilityTrigger> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -48,9 +46,6 @@ public record TimeProbabilityTrigger(TimeCondition timeCondition, Optional<Doubl
             double modifiedProbability = probabilityFunction.get().getProbability(context.getLevel());
             return nextFloat < modifiedProbability;
         } else {
-            if (base_probability.isPresent()){
-                System.out.println(base_probability.get() + " " + nextFloat);
-            }
             return base_probability.isPresent() && nextFloat < base_probability.get();
         }
 
