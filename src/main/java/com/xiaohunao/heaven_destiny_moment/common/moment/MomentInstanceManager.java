@@ -14,6 +14,7 @@ import com.xiaohunao.heaven_destiny_moment.common.context.MomentData;
 import com.xiaohunao.heaven_destiny_moment.common.context.SpawnCategoryMultiplierInstance;
 import com.xiaohunao.heaven_destiny_moment.common.context.SpawnCategoryMultiplierModifier;
 import com.xiaohunao.heaven_destiny_moment.common.context.condition.ICondition;
+import com.xiaohunao.heaven_destiny_moment.common.event.MomentEvent;
 import com.xiaohunao.heaven_destiny_moment.common.init.HDMRegistries;
 import com.xiaohunao.heaven_destiny_moment.common.mixed.MomentManagerMixed;
 import com.xiaohunao.heaven_destiny_moment.common.mixed.SpawnCategoryMultiplierInstanceMixed;
@@ -151,6 +152,11 @@ public class MomentInstanceManager {
 
 
     public void addMomentInstance(MomentInstance instance) {
+        MomentEvent.Create post = NeoForge.EVENT_BUS.post(new MomentEvent.Create(instance));
+        if (post.isCanceled()) {
+            return;
+        }
+
         this.runMoments = ImmutableMap.<UUID, MomentInstance>builder().putAll(runMoments).put(instance.getID(), instance).build();
         momentMap.put(HDMRegistries.MOMENT.getResourceKey(instance.moment).orElseThrow(), instance);
         momentInstanceMap.put(instance.moment, instance);

@@ -22,7 +22,7 @@ public abstract class MomentEvent extends Event {
         }
     }
 
-    public static class Create extends MomentEvent {
+    public static class Create extends MomentEvent implements ICancellableEvent{
         public Create(MomentInstance momentInstance) {
             super(momentInstance);
         }

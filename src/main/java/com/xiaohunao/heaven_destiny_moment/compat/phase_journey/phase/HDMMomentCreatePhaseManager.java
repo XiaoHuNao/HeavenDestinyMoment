@@ -1,10 +1,12 @@
 package com.xiaohunao.heaven_destiny_moment.compat.phase_journey.phase;
 
+import com.mojang.datafixers.util.Pair;
 import com.xiaohunao.heaven_destiny_moment.common.event.MomentEvent;
+import com.xiaohunao.phase_journey.common.phase.PhaseManager;
+import com.xiaohunao.phase_journey.common.phase.PhaseType;
+import com.xiaohunao.phase_journey.common.util.PhaseUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
-import org.confluence.phase_journey.common.phase.PhaseManager;
-import org.confluence.phase_journey.common.util.PhaseUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -15,20 +17,22 @@ public class HDMMomentCreatePhaseManager extends PhaseManager<HDMMomentCreatePha
 
     @SubscribeEvent
     public void onMomentCreate(MomentEvent.Create event) {
-        for (Map.Entry<ResourceLocation, Collection<HDMMomentCreatePhaseContext>> entry : phaseContexts.asMap().entrySet()) {
-            if (PhaseUtils.hadLevelFinishedPhase(entry.getKey(), event.getMomentInstance().getLevel())) {
+        for (Map.Entry<PhaseType, Pair<ResourceLocation, HDMMomentCreatePhaseContext>> entry : phaseContexts.entries()) {
+            HDMMomentCreatePhaseContext ctx = entry.getValue().getSecond();
+            ResourceLocation phase = entry.getValue().getFirst();
+
+            if (PhaseUtils.hadLevelFinishedPhase(phase, event.getMomentInstance().getLevel())) {
                 continue;
             }
-            for (HDMMomentCreatePhaseContext ctx : entry.getValue()) {
-                if (ctx.disableAll()) {
-                    event.setCanceled(true);
-                    return;
-                }
-                if (ctx.bannedMoments().contains(event.getMomentInstance().getMomentResource())) {
-                    event.setCanceled(true);
-                    return;
-                }
+            if (ctx.disableAll()) {
+                event.setCanceled(true);
+                return;
+            }
+            if (ctx.bannedMoments().contains(event.getMomentInstance().getMomentResource())) {
+                event.setCanceled(true);
+                return;
             }
         }
+
     }
 }

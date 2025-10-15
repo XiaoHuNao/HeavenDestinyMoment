@@ -3,8 +3,9 @@ package com.xiaohunao.heaven_destiny_moment.compat.phase_journey.phase;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.xiaohunao.phase_journey.common.phase.PhaseContext;
 import net.minecraft.resources.ResourceLocation;
-import org.confluence.phase_journey.common.phase.PhaseContext;
+
 
 import java.util.List;
 
