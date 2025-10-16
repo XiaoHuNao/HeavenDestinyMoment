@@ -1,11 +1,5 @@
 package com.xiaohunao.heaven_destiny_moment.common.moment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
@@ -16,13 +10,12 @@ import com.xiaohunao.heaven_destiny_moment.common.context.ClientSettings;
 import com.xiaohunao.heaven_destiny_moment.common.context.MomentData;
 import com.xiaohunao.heaven_destiny_moment.common.context.TipSettings;
 import com.xiaohunao.heaven_destiny_moment.common.init.HDMRegistries;
-import com.xiaohunao.heaven_destiny_moment.common.moment.moment.instance.DefaultInstance;
 import com.xiaohunao.heaven_destiny_moment.common.tracker.ITracker;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public abstract class Moment implements IMoment {
     public Optional<IBarRenderType> barRenderType = Optional.empty();

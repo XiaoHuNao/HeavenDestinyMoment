@@ -1,17 +1,13 @@
 package com.xiaohunao.heaven_destiny_moment.common.moment;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.MapCodec;
 import com.xiaohunao.heaven_destiny_moment.client.gui.bar.render.IBarRenderType;
 import com.xiaohunao.heaven_destiny_moment.common.context.ClientSettings;
 import com.xiaohunao.heaven_destiny_moment.common.context.MomentData;
 import com.xiaohunao.heaven_destiny_moment.common.context.TipSettings;
-import com.xiaohunao.heaven_destiny_moment.common.moment.moment.DefaultMoment;
 import com.xiaohunao.heaven_destiny_moment.common.tracker.ITracker;
-import com.xiaohunao.xhn_lib.api.register.holder.FlexibleHolder;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 

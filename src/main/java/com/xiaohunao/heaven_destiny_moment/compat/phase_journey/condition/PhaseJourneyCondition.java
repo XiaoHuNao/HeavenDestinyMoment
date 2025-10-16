@@ -7,12 +7,9 @@ import com.xiaohunao.heaven_destiny_moment.common.automation.AutomationContext;
 import com.xiaohunao.heaven_destiny_moment.common.context.condition.ICondition;
 import com.xiaohunao.phase_journey.common.init.PJAttachments;
 import com.xiaohunao.phase_journey.common.util.PhaseUtils;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 

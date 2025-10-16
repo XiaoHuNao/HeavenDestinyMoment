@@ -3,7 +3,6 @@ package com.xiaohunao.heaven_destiny_moment.common.data.gen.provider;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.JsonOps;
 import com.xiaohunao.heaven_destiny_moment.common.moment.IMoment;
-import com.xiaohunao.heaven_destiny_moment.common.moment.Moment;
 import com.xiaohunao.xhn_lib.api.register.holder.FlexibleHolder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;

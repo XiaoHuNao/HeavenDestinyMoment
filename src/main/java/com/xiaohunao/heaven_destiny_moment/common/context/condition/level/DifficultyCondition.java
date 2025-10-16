@@ -4,12 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.xiaohunao.heaven_destiny_moment.common.automation.AutomationContext;
 import com.xiaohunao.heaven_destiny_moment.common.context.condition.ICondition;
-import com.xiaohunao.heaven_destiny_moment.common.moment.MomentInstance;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
-import org.jetbrains.annotations.Nullable;
 
 public record DifficultyCondition(Difficulty difficulty) implements ICondition {
     public static final DifficultyCondition PEACEFUL = new DifficultyCondition(Difficulty.PEACEFUL);

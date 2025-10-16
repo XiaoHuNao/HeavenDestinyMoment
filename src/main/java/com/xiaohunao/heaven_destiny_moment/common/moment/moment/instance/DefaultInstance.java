@@ -2,7 +2,6 @@ package com.xiaohunao.heaven_destiny_moment.common.moment.moment.instance;
 
 import com.xiaohunao.heaven_destiny_moment.common.init.HDMMomentTypes;
 import com.xiaohunao.heaven_destiny_moment.common.moment.IMoment;
-import com.xiaohunao.heaven_destiny_moment.common.moment.Moment;
 import com.xiaohunao.heaven_destiny_moment.common.moment.MomentInstance;
 import net.minecraft.world.level.Level;
 

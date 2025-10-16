@@ -3,7 +3,6 @@ package com.xiaohunao.heaven_destiny_moment.common.mixin;
 import com.xiaohunao.heaven_destiny_moment.HeavenDestinyMoment;
 import com.xiaohunao.heaven_destiny_moment.common.mixed.SpawnerDataMomentMixed;
 import com.xiaohunao.heaven_destiny_moment.common.moment.IMoment;
-import com.xiaohunao.heaven_destiny_moment.common.moment.Moment;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

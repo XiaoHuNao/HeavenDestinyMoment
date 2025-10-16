@@ -6,12 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.xiaohunao.heaven_destiny_moment.common.automation.AutomationContext;
 import com.xiaohunao.heaven_destiny_moment.common.context.IBuilderConverter;
 import com.xiaohunao.heaven_destiny_moment.common.context.condition.ICondition;
-import com.xiaohunao.heaven_destiny_moment.common.moment.MomentInstance;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

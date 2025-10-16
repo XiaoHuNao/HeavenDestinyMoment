@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.xiaohunao.phase_journey.common.phase.PhaseContext;
 import net.minecraft.resources.ResourceLocation;
 
-
 import java.util.List;
 
 public class HDMMomentCreatePhaseContext extends PhaseContext {

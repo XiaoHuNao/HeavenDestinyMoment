@@ -5,8 +5,6 @@ import com.google.common.collect.Multimap;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.bus.api.Event;
-import net.neoforged.bus.api.EventPriority;
-import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.UUID;
 import java.util.function.Consumer;

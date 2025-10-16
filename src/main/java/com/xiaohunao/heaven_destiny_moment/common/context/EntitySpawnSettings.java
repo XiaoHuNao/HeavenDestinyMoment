@@ -9,7 +9,6 @@ import com.xiaohunao.heaven_destiny_moment.common.context.entity_info.EntityInfo
 import com.xiaohunao.heaven_destiny_moment.common.context.entity_info.IEntityInfo;
 import com.xiaohunao.heaven_destiny_moment.common.mixed.SpawnerDataMomentMixed;
 import com.xiaohunao.heaven_destiny_moment.common.moment.IMoment;
-import com.xiaohunao.heaven_destiny_moment.common.moment.Moment;
 import com.xiaohunao.heaven_destiny_moment.common.spawn_algorithm.ISpawnAlgorithm;
 import com.xiaohunao.heaven_destiny_moment.common.spawn_algorithm.OpenAreaSpawnAlgorithm;
 import net.minecraft.util.random.WeightedRandomList;

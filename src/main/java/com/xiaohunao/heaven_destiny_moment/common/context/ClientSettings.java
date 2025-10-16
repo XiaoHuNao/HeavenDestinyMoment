@@ -1,10 +1,10 @@
 package com.xiaohunao.heaven_destiny_moment.common.context;
 
-import java.util.Optional;
-
 import com.google.common.base.Function;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import java.util.Optional;
 
 public record ClientSettings(Optional<Integer> environmentColor,
         Optional<ClientMoonSettings> clientMoonSettings) {
