@@ -2,7 +2,7 @@ package com.xiaohunao.heaven_destiny_moment.compat.phase_journey.phase;
 
 import com.mojang.datafixers.util.Pair;
 import com.xiaohunao.heaven_destiny_moment.common.event.MomentEvent;
-import com.xiaohunao.phase_journey.common.phase.PhaseManager;
+import com.xiaohunao.phase_journey.api.phase.PhaseManager;
 import com.xiaohunao.phase_journey.common.phase.PhaseType;
 import com.xiaohunao.phase_journey.common.util.PhaseUtils;
 import net.minecraft.resources.ResourceLocation;
