@@ -2,6 +2,7 @@ package com.xiaohunao.heaven_destiny_moment.api;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.google.gson.JsonElement;
 import com.mojang.datafixers.util.Pair;
 import com.xiaohunao.heaven_destiny_moment.common.automation.AutomationRule;
 import com.xiaohunao.heaven_destiny_moment.common.context.AutoActuatorGroupSettings;
@@ -10,9 +11,13 @@ import com.xiaohunao.heaven_destiny_moment.common.init.HDMRegistries;
 import com.xiaohunao.heaven_destiny_moment.common.moment.IMoment;
 import com.xiaohunao.xhn_lib.api.data.loader.BaseDynamicLoader;
 import com.xiaohunao.xhn_lib.common.serialization.IDynamicSerializer;
+import net.minecraft.core.MappedRegistry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class MomentManager extends BaseDynamicLoader<IMoment> {
     private static final MomentManager INSTANCE = new MomentManager();
@@ -26,6 +31,11 @@ public class MomentManager extends BaseDynamicLoader<IMoment> {
 
     public static MomentManager getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    protected void loadNewValues(MappedRegistry<IMoment> mappedRegistry, Map<ResourceLocation, JsonElement> resources) {
+        super.loadNewValues(mappedRegistry, resources);
     }
 
     @Override
