@@ -342,8 +342,7 @@ public class MomentInstanceManager {
             return true;
         }
 
-        for (int i = 0; i < specialConditions.size(); i++) {
-            ICondition condition = specialConditions.get(i);
+        for (ICondition condition : specialConditions) {
             if (!condition.matches(automationContext)) {
                 return false;
             }
