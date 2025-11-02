@@ -123,7 +123,7 @@ boolean shouldJarJar = false
 
 dependencies {
     compileOnly "curse.maven:champions-unofficial-1074990:6086086"
-    compileOnly(project(":PhaseJourney"))
+    compileOnly("curse.maven:phase-journey-1373480:7156403")
 
     if (shouldJarJar) {
         implementation(jarJar(group: 'com.xiaohunao', name: 'xhn_lib', version: '1.21.1-0.0.2'))
