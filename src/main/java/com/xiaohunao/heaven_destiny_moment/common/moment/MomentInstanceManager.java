@@ -1,5 +1,15 @@
 package com.xiaohunao.heaven_destiny_moment.common.moment;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
@@ -22,6 +32,7 @@ import com.xiaohunao.heaven_destiny_moment.common.network.ClientOnlyMomentSyncPa
 import com.xiaohunao.heaven_destiny_moment.common.network.MomentBarSyncPayload;
 import com.xiaohunao.heaven_destiny_moment.common.network.MomentManagerSyncPayload;
 import com.xiaohunao.heaven_destiny_moment.common.trigger.ITrigger;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -34,15 +45,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.function.Consumer;
 
 public class MomentInstanceManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MomentInstanceManager.class);
@@ -215,6 +217,9 @@ public class MomentInstanceManager {
 
         instance.eventBusUnregister();
 
+        if (instance.playerListManager != null) {
+            instance.playerListManager.clear();
+        }
 
         instance.getPlayers().forEach(player -> {
             if (instance.isClientOnlyMoment() && !level.isClientSide) {
@@ -414,28 +419,33 @@ public class MomentInstanceManager {
     }
 
     public <T extends ITrigger> void trigger(Class<T> triggerClass, AutomationContext context) {
-        // 将触发器处理提交到线程池
         AutomationThreadManager.getInstance().submitTask(() -> {
             try {
-                // 获取规则（这部分可以在工作线程中执行）
                 Collection<Pair<IMoment, AutomationRule>> createRules = MomentManager.getInstance().getRulesTriggerType(triggerClass);
 
                 for (Pair<IMoment, AutomationRule> rulePair : createRules) {
                     IMoment moment = rulePair.getFirst();
                     AutomationRule rule = rulePair.getSecond();
 
-                    MomentInstanceBuilder builder = new MomentInstanceBuilder(moment, context);
+                    AutomationContext taskContext = copyContext(context);
+
+                    MomentInstanceBuilder builder = new MomentInstanceBuilder(moment, taskContext);
                     MomentInstance momentInstance = builder.build();
-                    context.momentInstance(momentInstance);
-                    if (rule.trigger().map(trigger -> trigger.canTrigger(context)).orElse(true)) {
-                        IActuator actuator = rule.actuator();
-                        if (actuator instanceof CreateMomentInstanceActuator) {
-                            // 需要在主线程执行的操作
-                            AutomationThreadManager.getInstance().addPendingTask(() -> {
-                                if (validateConditions(momentInstance, new MomentInstanceBuilder(moment, context))) {
-                                    addMomentInstance(momentInstance);
-                                }
-                            });
+
+                    if (momentInstance != null) {
+                        taskContext.momentInstance(momentInstance);
+                        
+                        if (rule.trigger().map(trigger -> trigger.canTrigger(taskContext)).orElse(true)) {
+                            IActuator actuator = rule.actuator();
+                            if (actuator instanceof CreateMomentInstanceActuator) {
+                                final MomentInstance finalInstance = momentInstance;
+                                final MomentInstanceBuilder finalBuilder = builder;
+                                AutomationThreadManager.getInstance().addPendingTask(() -> {
+                                    if (validateConditions(finalInstance, finalBuilder)) {
+                                        addMomentInstance(finalInstance);
+                                    }
+                                });
+                            }
                         }
                     }
                 }
@@ -444,11 +454,28 @@ public class MomentInstanceManager {
             }
         });
 
-        // 处理运行中的时刻
         runMoments.values().forEach(momentInstance -> {
-            context.momentInstance(momentInstance);
-            momentInstance.triggerManager.trigger(triggerClass, context);
+            AutomationContext instanceContext = copyContext(momentInstance, context);
+            momentInstance.triggerManager.trigger(triggerClass, instanceContext);
         });
+    }
+
+    //创建副本
+    public AutomationContext copyContext(MomentInstance momentInstance, AutomationContext context) {
+        return copyContext(context).momentInstance(momentInstance);
+    }
+
+    public AutomationContext copyContext(AutomationContext context) {
+        return AutomationContext.of(context.getLevel())
+                .player(context.player().orElse(null))
+                .block(context.block().orElse(null))
+                .entityType(context.entityType().orElse(null))
+                .blockPos(context.blockPos().orElse(null))
+                .difficulty(context.difficulty().orElse(null))
+                .currentGameTime(context.currentGameTime().orElse(null))
+                .currentDayTime(context.currentDayTime().orElse(null))
+                .blockState(context.blockState().orElse(null))
+                .itemStack(context.itemStack().orElse(null));
     }
 
 }

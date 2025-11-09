@@ -90,7 +90,13 @@ public class PlayerListManager {
     public void removePlayer(Player player) {
         if (player != null) {
             this.players.removeIf(player1 -> player.getUUID().equals(player1.getUUID()));
+            playerKillRecorders.remove(player.getUUID());
         }
+    }
+
+    public void clear() {
+        players.clear();
+        playerKillRecorders.clear();
     }
 
     public boolean isEmpty() {
