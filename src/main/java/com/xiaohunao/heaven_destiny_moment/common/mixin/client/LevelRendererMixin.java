@@ -20,9 +20,8 @@ import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelRenderer.class)
@@ -38,11 +37,11 @@ public abstract class LevelRendererMixin {
         return original;
     }
 
-    @ModifyConstant(method = "renderSky", constant = @Constant(floatValue = 20.0F))
-    private float renderSky(float originalSize, @Share("ClientMoonSettings") LocalRef<@Nullable ClientMoonSettings> ref) {
+    @ModifyVariable(method = "renderSky", at = @At(value = "STORE", ordinal = 2), ordinal = 5)
+    private float modify(float original, @Share("ClientMoonSettings") LocalRef<@Nullable ClientMoonSettings> ref) {
         ClientMoonSettings settings = ref.get();
-        if (settings != null) originalSize = settings.moonSize().orElse(originalSize);
-        return originalSize;
+        if (settings != null) original = settings.moonSize().orElse(original);
+        return original;
     }
 
     @WrapOperation(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V", ordinal = 1))
