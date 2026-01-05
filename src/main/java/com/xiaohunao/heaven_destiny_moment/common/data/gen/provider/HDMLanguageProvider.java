@@ -1,6 +1,7 @@
 package com.xiaohunao.heaven_destiny_moment.common.data.gen.provider;
 
 import com.xiaohunao.heaven_destiny_moment.HeavenDestinyMoment;
+import com.xiaohunao.heaven_destiny_moment.common.init.HDMRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
@@ -13,6 +14,15 @@ public class HDMLanguageProvider extends MomentLanguageProvider{
 
     @Override
     protected void addTranslations() {
+        addTranslation(HDMRegistries.Keys.MOMENT.location().toLanguageKey(),
+                "Moment",
+                HDMRegistries.Keys.MOMENT.location().toLanguageKey()
+        );
+        addTranslation( HDMRegistries.Keys.MOMENT.location().getPath() + ".heaven_destiny_moment.raid",
+                "Raid",
+                "moment.heaven_destiny_moment.raid"
+        );
+
         addTranslation("moment.unknown",
                 "Unknown Moment",
                 "未知时刻"
